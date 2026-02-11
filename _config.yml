@@ -16,7 +16,7 @@ timezone: Asia/Shanghai
 
 title: MRC2407 # the main title
 
-tagline: MRC2407의 블로그 # it will display as the subtitle
+tagline: MRC2407''s Blog # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   A minimal, responsive and feature-rich Jekyll theme for technical writing.
