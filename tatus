@@ -1,0 +1,150 @@
+[1mdiff --git a/.github/workflows/jekyll.yml b/.github/workflows/jekyll.yml[m
+[1mdeleted file mode 100644[m
+[1mindex c1d0975..0000000[m
+[1m--- a/.github/workflows/jekyll.yml[m
+[1m+++ /dev/null[m
+[36m@@ -1,65 +0,0 @@[m
+[31m-# This workflow uses actions that are not certified by GitHub.[m
+[31m-# They are provided by a third-party and are governed by[m
+[31m-# separate terms of service, privacy policy, and support[m
+[31m-# documentation.[m
+[31m-[m
+[31m-# Sample workflow for building and deploying a Jekyll site to GitHub Pages[m
+[31m-name: Deploy Jekyll site to Pages[m
+[31m-[m
+[31m-on:[m
+[31m-  # Runs on pushes targeting the default branch[m
+[31m-  push:[m
+[31m-    branches: ["main"][m
+[31m-[m
+[31m-  # Allows you to run this workflow manually from the Actions tab[m
+[31m-  workflow_dispatch:[m
+[31m-[m
+[31m-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages[m
+[31m-permissions:[m
+[31m-  contents: read[m
+[31m-  pages: write[m
+[31m-  id-token: write[m
+[31m-[m
+[31m-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.[m
+[31m-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.[m
+[31m-concurrency:[m
+[31m-  group: "pages"[m
+[31m-  cancel-in-progress: false[m
+[31m-[m
+[31m-jobs:[m
+[31m-  # Build job[m
+[31m-  build:[m
+[31m-    runs-on: ubuntu-latest[m
+[31m-    steps:[m
+[31m-      - name: Checkout[m
+[31m-        uses: actions/checkout@v4[m
+[31m-      - name: Setup Ruby[m
+[31m-        # https://github.com/ruby/setup-ruby/releases/tag/v1.207.0[m
+[31m-        uses: ruby/setup-ruby@4a9ddd6f338a97768b8006bf671dfbad383215f4[m
+[31m-        with:[m
+[31m-          ruby-version: '3.1' # Not needed with a .ruby-version file[m
+[31m-          bundler-cache: true # runs 'bundle install' and caches installed gems automatically[m
+[31m-          cache-version: 0 # Increment this number if you need to re-download cached gems[m
+[31m-      - name: Setup Pages[m
+[31m-        id: pages[m
+[31m-        uses: actions/configure-pages@v5[m
+[31m-      - name: Build with Jekyll[m
+[31m-        # Outputs to the './_site' directory by default[m
+[31m-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"[m
+[31m-        env:[m
+[31m-          JEKYLL_ENV: production[m
+[31m-      - name: Upload artifact[m
+[31m-        # Automatically uploads an artifact from the './_site' directory by default[m
+[31m-        uses: actions/upload-pages-artifact@v3[m
+[31m-[m
+[31m-  # Deployment job[m
+[31m-  deploy:[m
+[31m-    environment:[m
+[31m-      name: github-pages[m
+[31m-      url: ${{ steps.deployment.outputs.page_url }}[m
+[31m-    runs-on: ubuntu-latest[m
+[31m-    needs: build[m
+[31m-    steps:[m
+[31m-      - name: Deploy to GitHub Pages[m
+[31m-        id: deployment[m
+[31m-        uses: actions/deploy-pages@v5[m
+[1mdiff --git a/.github/workflows/starter/pages-deploy.yml b/.github/workflows/starter/pages-deploy.yml[m
+[1mdeleted file mode 100644[m
+[1mindex b865061..0000000[m
+[1m--- a/.github/workflows/starter/pages-deploy.yml[m
+[1m+++ /dev/null[m
+[36m@@ -1,73 +0,0 @@[m
+[31m-name: "Build and Deploy"[m
+[31m-on:[m
+[31m-  push:[m
+[31m-    branches:[m
+[31m-      - main[m
+[31m-      - master[m
+[31m-    paths-ignore:[m
+[31m-      - .gitignore[m
+[31m-      - README.md[m
+[31m-      - LICENSE[m
+[31m-[m
+[31m-  # Allows you to run this workflow manually from the Actions tab[m
+[31m-  workflow_dispatch:[m
+[31m-[m
+[31m-permissions:[m
+[31m-  contents: read[m
+[31m-  pages: write[m
+[31m-  id-token: write[m
+[31m-[m
+[31m-# Allow one concurrent deployment[m
+[31m-concurrency:[m
+[31m-  group: "pages"[m
+[31m-  cancel-in-progress: true[m
+[31m-[m
+[31m-jobs:[m
+[31m-  build:[m
+[31m-    runs-on: ubuntu-latest[m
+[31m-[m
+[31m-    steps:[m
+[31m-      - name: Checkout[m
+[31m-        uses: actions/checkout@v7[m
+[31m-        with:[m
+[31m-          fetch-depth: 0[m
+[31m-          # submodules: true[m
+[31m-          # If using the 'assets' git submodule from Chirpy Starter, uncomment above[m
+[31m-          # (See: https://github.com/cotes2020/chirpy-starter/tree/main/assets)[m
+[31m-[m
+[31m-      - name: Setup Pages[m
+[31m-        id: pages[m
+[31m-        uses: actions/configure-pages@v6[m
+[31m-[m
+[31m-      - name: Setup Ruby[m
+[31m-        uses: ruby/setup-ruby@v1[m
+[31m-        with:[m
+[31m-          ruby-version: 3.4[m
+[31m-          bundler-cache: true[m
+[31m-[m
+[31m-      - name: Build site[m
+[31m-        run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"[m
+[31m-        env:[m
+[31m-          JEKYLL_ENV: "production"[m
+[31m-[m
+[31m-      - name: Test site[m
+[31m-        run: |[m
+[31m-          bundle exec htmlproofer _site \[m
+[31m-            \-\-disable-external \[m
+[31m-            \-\-ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"[m
+[31m-[m
+[31m-      - name: Upload site artifact[m
+[31m-        uses: actions/upload-pages-artifact@v5[m
+[31m-        with:[m
+[31m-          path: "_site${{ steps.pages.outputs.base_path }}"[m
+[31m-[m
+[31m-  deploy:[m
+[31m-    environment:[m
+[31m-      name: github-pages[m
+[31m-      url: ${{ steps.deployment.outputs.page_url }}[m
+[31m-    runs-on: ubuntu-latest[m
+[31m-    needs: build[m
+[31m-    steps:[m
+[31m-      - name: Deploy to GitHub Pages[m
+[31m-        id: deployment[m
+[31m-        uses: actions/deploy-pages@v5[m
