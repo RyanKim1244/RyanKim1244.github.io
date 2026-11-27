@@ -18,3 +18,14 @@
 body {
   font-family: var(--bs-body-font-family), 'Nanum Gothic', sans-serif;
 }
+
+/* Justify body text in posts: stretch word spacing so lines reach both edges. */
+article .content {
+  > p,
+  > ul > li,
+  > ol > li,
+  > blockquote > p {
+    text-align: justify;
+    word-break: keep-all; /* keep Korean words intact when wrapping */
+  }
+}
