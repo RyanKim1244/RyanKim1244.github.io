@@ -4,7 +4,7 @@ description: 직사각형 영역에서의 이중적분
 author: MRC2407
 date: 2026-11-27
 categories: [Blogging]
-tags: [Text Review]
+tags: [Text Review, mathematics, calculus]
 
 hidden: false
 ---
