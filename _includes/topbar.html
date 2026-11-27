@@ -5,7 +5,20 @@
     id="topbar"
     class="d-flex align-items-center justify-content-between px-lg-3 h-100"
   >
-    <nav id="breadcrumb" aria-label="Breadcrumb">
+    <button
+      type="button"
+      id="sidebar-collapse-trigger"
+      class="btn btn-link layout-toggle"
+      data-layout-toggle="sidebar"
+      aria-controls="sidebar"
+      aria-expanded="true"
+      aria-label="Toggle sidebar"
+      title="Toggle sidebar"
+    >
+      <i class="fas fa-angles-left fa-fw"></i>
+    </button>
+
+    <nav id="breadcrumb" class="me-auto" aria-label="Breadcrumb">
       {% assign paths = page.url | split: '/' %}
 
       {% if paths.size == 0 or page.layout == 'home' %}
@@ -72,6 +85,19 @@
     </search>
     <button type="button" class="btn btn-link text-decoration-none" id="search-cancel">
       {{- site.data.locales[include.lang].search.cancel -}}
+    </button>
+
+    <button
+      type="button"
+      id="panel-collapse-trigger"
+      class="btn btn-link layout-toggle"
+      data-layout-toggle="panel"
+      aria-controls="panel-wrapper"
+      aria-expanded="true"
+      aria-label="Toggle panel"
+      title="Toggle panel"
+    >
+      <i class="fas fa-angles-right fa-fw"></i>
     </button>
   </div>
 </header>

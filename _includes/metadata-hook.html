@@ -1,1 +1,14 @@
 <!-- A placeholder to allow defining custom metadata -->
+
+<!-- Restore the collapsed state of the sidebar and panel before the first paint -->
+<script>
+  (function () {
+    try {
+      ['sidebar', 'panel'].forEach(function (key) {
+        if (localStorage.getItem('layout-' + key + '-collapsed') === '1') {
+          document.documentElement.setAttribute('data-' + key + '-collapsed', '');
+        }
+      });
+    } catch (e) {}
+  })();
+</script>
