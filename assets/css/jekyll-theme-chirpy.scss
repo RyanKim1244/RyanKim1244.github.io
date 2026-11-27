@@ -29,3 +29,97 @@ article .content {
     word-break: keep-all; /* keep Korean words intact when wrapping */
   }
 }
+
+/* --- Collapsible sidebar (left) and panel (right) on wide screens --- */
+
+$layout-ease: 0.35s ease;
+
+.layout-toggle {
+  display: none;
+  color: var(--text-muted-color);
+  padding: 0.25rem 0.5rem;
+
+  i {
+    transition: transform $layout-ease;
+  }
+
+  &:hover,
+  &:focus {
+    color: var(--link-color);
+  }
+}
+
+/* left sidebar: >= lg (850px), where it is pinned open by default */
+@media all and (min-width: 850px) {
+  #sidebar-collapse-trigger {
+    display: block;
+  }
+
+  /* animate only after a click, so a restored state does not slide in on page load */
+  html.layout-animating {
+    #sidebar {
+      transition: transform $layout-ease;
+    }
+
+    #main-wrapper {
+      transition: margin-left $layout-ease;
+    }
+  }
+
+  html[data-sidebar-collapsed] {
+    #sidebar {
+      transform: translateX(-100%);
+      visibility: hidden;
+      transition-property: transform, visibility;
+      transition-duration: 0.35s;
+    }
+
+    #main-wrapper {
+      margin-left: 0;
+    }
+
+    #sidebar-collapse-trigger i {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+/* right panel: >= xl (1200px), where it is shown as a column */
+@media all and (min-width: 1200px) {
+  #panel-collapse-trigger {
+    display: block;
+  }
+
+  html.layout-animating {
+    #main-wrapper > .container > .row > main,
+    #tail-wrapper {
+      transition: width $layout-ease;
+    }
+
+    #panel-wrapper {
+      transition:
+        width $layout-ease,
+        padding $layout-ease,
+        opacity 0.2s ease;
+    }
+  }
+
+  html[data-panel-collapsed] {
+    #main-wrapper > .container > .row > main,
+    #tail-wrapper {
+      width: 100%;
+    }
+
+    #panel-wrapper {
+      width: 0;
+      padding: 0 !important;
+      opacity: 0;
+      overflow: clip;
+      pointer-events: none;
+    }
+
+    #panel-collapse-trigger i {
+      transform: rotate(180deg);
+    }
+  }
+}

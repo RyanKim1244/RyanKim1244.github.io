@@ -1,0 +1,33 @@
+<!-- Collapse / expand the left sidebar and the right panel on wide screens -->
+<script>
+  (function () {
+    var root = document.documentElement;
+
+    function sync(btn, collapsed) {
+      btn.setAttribute('aria-expanded', String(!collapsed));
+    }
+
+    document.querySelectorAll('[data-layout-toggle]').forEach(function (btn) {
+      var key = btn.getAttribute('data-layout-toggle');
+      var attr = 'data-' + key + '-collapsed';
+
+      sync(btn, root.hasAttribute(attr));
+
+      btn.addEventListener('click', function () {
+        var collapsed = !root.hasAttribute(attr);
+
+        root.classList.add('layout-animating');
+        if (collapsed) {
+          root.setAttribute(attr, '');
+        } else {
+          root.removeAttribute(attr);
+        }
+        sync(btn, collapsed);
+
+        try {
+          localStorage.setItem('layout-' + key + '-collapsed', collapsed ? '1' : '0');
+        } catch (e) {}
+      });
+    });
+  })();
+</script>
